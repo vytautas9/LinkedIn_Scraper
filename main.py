@@ -33,14 +33,14 @@ import credentials
 # Program parameters
 # Job position to look for and locale
 position = "data scientist"
-local = "lithuania"
-landing_page = f'https://www.linkedin.com/jobs/search/?currentJobId=3156228491&geoId=101464403&keywords={position.replace(" ", "%20")}&location={local}'
+location = "lithuania"
+#landing_page = f'https://www.linkedin.com/jobs/search/?currentJobId=3156228491&geoId=101464403&keywords={position.replace(" ", "%20")}&location={local}'
 
 # How many pages are we gonna loop through
 # TODO - make the program read the number of available pages
-number_of_pages = 20
+#number_of_pages = 20
 # read linked in site (True) or read csv file (False) to get links?
-read_linkedin = False
+read_linkedin = True
 # -----------------------------------------------------------
 
 
@@ -68,7 +68,32 @@ def login_linkedin(email, password):
     driver.implicitly_wait(30)
 
 
-def get_linkedin_job_links(number_of_pages, landing_page):
+def open_job_list_page(job_position, job_location):
+    # Open default LinkedIn job list page
+    driver.get('https://www.linkedin.com/jobs/')
+    # Find the keywords/location search bars
+    search_bars = driver.find_elements(By.CLASS_NAME, 'jobs-search-box__text-input')
+    # Enter the job_position and job_location into search bars
+    search_keywords = search_bars[0]
+    search_keywords.send_keys(job_position)
+    search_location = search_bars[3]
+    search_location.send_keys(job_location)
+    time.sleep(2)
+    search_location.send_keys(Keys.RETURN)
+
+
+def get_number_of_available_links():
+    # Get the number of available links afer opening job list page
+    jobs_block = driver.find_element(By.CLASS_NAME,'jobs-search-results-list')
+    page_block = jobs_block.find_elements(By.CSS_SELECTOR, '.jobs-search-results-list__pagination')
+    # A string of page numbers, example: 1 \n 2 \n 3 \n ... \n 22
+    pages = page_block[0].text.splitlines()
+    # Get the maximum page number as int
+    max_page_number = int(pages[len(pages)-1])
+    return max_page_number
+
+
+def get_linkedin_job_links(job_position, job_location):
     """
     Reads the linkedin job offers and get links to them.
     :param number_of_pages: number of pages to be read. Before launching this function, please indicate the maximum pages to be read from LinkedIn (manual).
@@ -76,9 +101,11 @@ def get_linkedin_job_links(number_of_pages, landing_page):
     :return: a list of job offer links.
     """
     # Opening jobs webpage
-    driver.get(landing_page)
+    open_job_list_page(job_position, job_location)
     # waiting load
     time.sleep(2)
+    # Get the maximum number of available pages
+    number_of_pages = get_number_of_available_links()
     # empty list for links
     links = []
     print('Links are being collected now.')
@@ -113,109 +140,6 @@ def get_linkedin_job_links(number_of_pages, landing_page):
     print('Scanning complete.')
     print('Found ' + str(len(links)) + ' links for job offers')
     return links
-
-
-def get_linkedin_job_offer_description(urls):
-    """
-    Reads the general information and job description of provided links.
-    :param urls: a list of links to job offers.
-    :return: a dataframe with general information and job descriptions, as well as read datetime in UTC.
-    """
-    # TODO - error if 0 links provided
-    # Start reading linkedin job offers
-    # Create empty lists to store information
-    job_titles = []
-    company_names = []
-    company_locations = []
-    work_methods = []
-    post_dates = []
-    work_times = []
-    job_desc = []
-
-    # Visit each link one by one to scrape the information
-    print('Visiting the links and collecting information just started.')
-    for i in range(len(urls)):
-        print(f'\t Currently visiting link - {i + 1}')
-        try:
-            driver.get(urls[i])
-            time.sleep(2)
-            # Click See more.
-            driver.find_element(By.CLASS_NAME, "artdeco-card__actions").click()
-            time.sleep(2)
-        except Exception:
-            pass
-        # Find the general information of the job offers
-        # Sometimes there's more than 1 'p5' content, for now we'll take only the first one
-        content = driver.find_elements(By.CLASS_NAME, 'p5')[0]
-        print(f'\t\tGeneral job info. - IN-PROGRESS.')
-        try:
-            job_titles.append(content.find_element(By.TAG_NAME, "h1").text)
-        except NoSuchElementException:
-            print(f'\t\t\tJob title was not found.')
-            job_titles.append("")
-            pass
-        try:
-            company_names.append(content.find_element(By.CLASS_NAME, "jobs-unified-top-card__company-name").text)
-        except NoSuchElementException:
-            print(f'\t\t\tCompany name was not found.')
-            company_names.append("")
-            pass
-        try:
-            company_locations.append(content.find_element(By.CLASS_NAME, "jobs-unified-top-card__bullet").text)
-        except NoSuchElementException:
-            print(f'\t\t\tCompany location was not found.')
-            company_locations.append("")
-            pass
-        try:
-            work_times.append(content.find_element(By.CLASS_NAME, "jobs-unified-top-card__job-insight").text)
-        except NoSuchElementException:
-            print(f'\t\t\tWork time was not found.')
-            work_times.append("")
-            pass
-        # Those are not always present:
-        try:
-            work_methods.append(content.find_element(By.CLASS_NAME, "jobs-unified-top-card__workplace-type").text)
-        except NoSuchElementException:
-            print(f'\t\t\tWork method was not found.')
-            work_methods.append("")
-            pass
-        try:
-            post_dates.append(content.find_element(By.CLASS_NAME, "jobs-unified-top-card__posted-date").text)
-        except NoSuchElementException:
-            print(f'\t\t\tPost date was not found.')
-            post_dates.append("")
-            pass
-        print(f'\t\tGeneral job info. - DONE.')
-        time.sleep(2)
-        print(f'\t\tJob description - IN-PROGRESS.')
-        # select job description
-        try:
-            job_description = driver.find_element(By.CLASS_NAME, 'jobs-description__content')  # find_elements ir td [0]?
-            job_text = job_description.find_element(By.CLASS_NAME, "jobs-box__html-content").text
-        except NoSuchElementException:
-            print(f'\t\t\tJob description was not found.')
-            job_desc.append("")
-            pass
-        # add text to list
-        job_desc.append(job_text)
-        print(f'\t\tJob description - DONE.')
-        time.sleep(2)
-    print(f'Finished reading {len(urls)} link(s).')
-    # create a dataframe out of the results
-    # TODO - fix ValueError: All arrays must be of the same length
-    data = pd.DataFrame({'Date': post_dates,
-                         'Company': company_names,
-                         'Title': job_titles,
-                         'Location': company_locations,
-                         'Description': job_desc,
-                         'WorkMethods': work_methods,
-                         'WorkTimes': work_times,
-                         'Link': urls,
-                         'ReadDateTimeUTC': datetime.datetime.utcnow()
-                         })
-    # cleaning description column
-    data['Description'] = data['Description'].str.replace('\n', ' ')
-    return data
 
 
 def get_linkedin_job_offer_description_v2(urls):
@@ -347,10 +271,12 @@ login_linkedin(credentials.email, credentials.password)
 
 if read_linkedin:
     # Start reading linkedin job offer links
-    links = get_linkedin_job_links(number_of_pages, landing_page)
+    links = get_linkedin_job_links(position, location)
     # Save the links
     job_offer_links = pd.DataFrame({'ReadDateTimeUTC': datetime.datetime.utcnow(),
-                                    'Link': links
+                                    'Link': links,
+                                    'SearchPosition': position,
+                                    'SearchLocation': location
                                    }, index=range(0, len(links)))
     job_offer_links.to_csv('LinkedIn_Job_Links.csv', index = False)
 else:
