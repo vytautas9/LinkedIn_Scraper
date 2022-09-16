@@ -208,7 +208,7 @@ def get_linkedin_job_offer_description(job_links):
             driver.get(urls[i])
             time.sleep(2)
             # Click See more.
-            driver.find_element(By.CLASS_NAME, "artdeco-card__actions").click()
+            driver.find_element(By.CSS_SELECTOR, 'button[aria-label="Click to see more description"]').click()
             time.sleep(2)
         except Exception:
             # if error appears while opening the page, continue to next url
