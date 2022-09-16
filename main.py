@@ -174,15 +174,21 @@ def get_linkedin_job_links(job_position, job_location, old_job_links):
     return job_links
 
 
-def get_linkedin_job_offer_description(urls):
+def get_linkedin_job_offer_description(job_links):
     """
     Reads the general information and job description of provided links.
     :param urls: a list of links to job offers.
     :return: a dataframe with general information and job descriptions, as well as read datetime in UTC.
     """
     # TODO - error if 0 links provided
+
+    urls = job_links['job_link'].tolist()
+    all_job_ids = job_links['job_id'].tolist()
+
     # Start reading linkedin job offers
     # Create empty lists to store information
+    job_ids = []
+    job_links = []
     job_titles = []
     company_names = []
     company_locations = []
@@ -190,9 +196,11 @@ def get_linkedin_job_offer_description(urls):
     post_dates = []
     work_times = []
     job_descriptions = []
+    readDateTimesUTC = []
 
     # Visit each link one by one to scrape the information
     print('Visiting the links and collecting information just started.')
+    print(f'{len(urls)} link(s) are going to be read.')
     for i in range(len(urls)):
         print(f'\t Currently visiting link - {i + 1}')
         try:
@@ -209,6 +217,12 @@ def get_linkedin_job_offer_description(urls):
         # Sometimes there's more than 1 'p5' content, for now we'll take only the first one
         content = driver.find_elements(By.CLASS_NAME, 'p5')[0]
         print(f'\t\tGeneral job info. - IN-PROGRESS.')
+
+        readDateTimesUTC.append(datetime.datetime.utcnow())
+
+        # We take the job id and job link from the provided dataframe
+        job_ids.append(all_job_ids[i])
+        job_links.append(urls[i])
 
         # We use "find_elements" to get empty list in case value is not found
         # Job Title
@@ -274,20 +288,21 @@ def get_linkedin_job_offer_description(urls):
             print(f'\t\t\tJob description was not found...')
         print(f'\t\tJob description - DONE.')
         time.sleep(2)
-    print(f'Finished reading {len(urls)} link(s).')
+    print(f'Finished reading {len(job_links)} link(s).')
     # create a dataframe out of the results
     data = pd.DataFrame({'Date': post_dates,
+                         'job_id': job_ids,
                          'Company': company_names,
                          'Title': job_titles,
                          'Location': company_locations,
                          'Description': job_descriptions,
                          'WorkMethods': work_methods,
                          'WorkTimes': work_times,
-                         'Link': urls,
-                         'ReadDateTimeUTC': datetime.datetime.utcnow()
+                         'Link': job_links,
+                         'ReadDateTimeUTC': readDateTimesUTC
                          })
     # cleaning description column
-    data['Description'] = data['Description'].str.replace('\n', ' ')
+    #data['Description'] = data['Description'].str.replace('\n', ' ')
     return data
 # -----------------------------------------------------------
 
@@ -314,13 +329,12 @@ if read_linkedin:
     # Start reading LinkedIn job offer links
     job_links = get_linkedin_job_links(position, location, job_links)
     # Save the job links
-    job_links.to_csv('LinkedIn_Job_Links.csv', index = False)
+    job_links.to_csv('LinkedIn_Job_Links.csv', index=False)
 else:
     job_links = pd.read_csv('LinkedIn_Job_Links.csv')
 
 # Read linkedin job offers
-#job_data = get_linkedin_job_offer_description(links[0:2])
-#job_data.to_csv('LinkedIn_Jobs.csv', index = False)
-
+job_data = get_linkedin_job_offer_description(job_links[0:2])
+job_data.to_csv('LinkedIn_Jobs.csv', sep=';', index=False)
 # end the program and close the browser
 driver.quit()

@@ -1,3 +1,93 @@
-Date,Company,Title,Location,Description,WorkMethods,WorkTimes,Link,ReadDateTimeUTC
-3 weeks ago,Girteka,BI Developer,"Vilnius, Vilniaus, Lithuania","About the job We create responsible logistics for an exciting future! Our strategic dream is to become among the TOP10 logistics sector leaders in Europe by 2026. This ambitious goal makes our daily work even more meaningful and inspires us to surpass ourselves. Together, by creating a modern and advanced international company, we foster an open and friendly corporate culture where everyone is treated with respect. Join Girteka and take the lead of your career with the company that is setting impressive possibilities to grow. Girteka Logistics, the biggest European FTL (Full Truck Load) transportation company, is partnering with SAP to become leading digital trucking company. Here at Girteka Logistics, we seek excellence in everything we do. To ensure smooth SAP Analytics Cloud, SAP Data Intelligence Cloud and SAP Data Warehouse Cloud implementation process, we are looking for a BI Developer, who is willing to use an opportunity to develop and implement new SAP BI tools. This role will deliver project outputs and build expertise in SAP area by cooperating in Agile environment together with world-class consultants. Our perfect candidate is a sharp, open-minded and organized team player, with passion for building best business and analytics solutions. We focus on creating culture of excellence while providing extensive support for professional growth. In Girteka you will closely work with IT BI team, other SAP teams and external partners to understand requirements and specifications to ensure that developed solutions would function properly to meet organization expectations and goals. In this position you will: Develop customizations and data models based on various departments' requirement Understand and analyze SAP Analytics Cloud and Data Warehouse Cloud Product Backlog Assure development best practices in BI area Align with source systems‘ developers Identify problems and find solutions, alternatives Challenge business needs and requirements Provide subject matter consultations to team Contribute to continuous improvement of project, team, and work environment by submitting improvement proposals Participate in team agile ceremonies Our expectations: Logical/mathematical/analytical set of mind, fast-learner, detail-oriented, well-organized Understand methods, techniques and best practices used in business intelligence Track record of successful BI development and data modelling Previous SAP Business Intelligence experience (BODS, BW, business object, etc.) is a plus Previous SAP Analytics Cloud &/ SAP Data Warehouse Cloud experience is a huge plus Knowledge of software development life cycle Knowledge of Agile or Scrum methodology and tools like Atlassian Jira is a plus Fluency in English language - verbal and written communication, including technical writing We offer: Career opportunities: you will be able to grow along with us and create the career of your dreams. As much as 77% of our management has grown along with the company and as many as 30% of our colleagues progress up the career ladder every year. Learning and development: you will be able to grow by implementing interesting projects and by participating in internal and external trainings, seminars and working sessions. Additionally, we have strong mentoring and management programs and personal annual training budget. Health and well-being: you will enjoy modern and ergonomic office spaces as well as the superb lounge areas. On top of that, you will receive a 50% compensation for both breakfast and lunch, free fruits and cakes. We also provide you the opportunity to play sports, use our partners‘ discounts, as well as consult a psychologist free of charge. Flexibility: our company makes use of a hybrid work model and you can work from any Lithuanian city. Additionally, you will have the opportunity to work for 30 days from any EU or Schengen country. We have set up a special fund for those who want to volunteer and we provide off days to give you time to volunteer. Rewards and recognition: you will enjoy a day off during your birthday as well as holiday gifts. We reward our colleagues on the work anniversary occasions. We regularly organize team-building events as well as encourage various initiatives and like-minded clubs. Base monthly salary: from 3200 € to 4000 € (before tax). The final level of the salary will depend on competences displayed and results achieved. The salary may be further negotiable for candidates of outstanding competence and qualification.",Hybrid,Full-time · Associate,https://www.linkedin.com/jobs/view/3223292610/?eBP=CwEAAAGDLFbOA84PuIUNXh8xQw2Pvl28EYCASgMQWd9PGOfXGUZ1wwxqoS1BDM7CvXjyRSmUNXVJ2ASFtsV5M9JHs3v-2mwVPh8AoiQ8dhfKAHNOCVzSBfq6oF6TB7sc4JV4QvRbN6Rgjd_no4d8OVF9NKJ9cjC6wM8Bjx6x3NYbxbFdbR4nVOKX6PTVrzgyL5bU5eB7kJp_o9sn9-7adboJMGTduBG8QlPe0QCkCcrtX7ciA0ZSMXbCWzVienTcZDm_jUZqnX7PKGjBMbXVGLIkhpnKxLLL053InUrWequY5ORoNTj7V5GnUEHh8NqVJQ8HIej3HoWWbA49TU34y4Zl_7e46Cx2-IbVGP8gufgzVDNJKlXZh4Wxd6oPmg&recommendedFlavor=IN_NETWORK&refId=EwaRYR1LmYdYlVRQ1mfpGw%3D%3D&trackingId=yPilt3c4Ohp3hPjWQ0s%2BHg%3D%3D&trk=flagship3_search_srp_jobs,2022-09-11 16:28:46.917702
-3 weeks ago,Reiz Tech,Power Platform Developer,Lithuania,"About the job CLIENT AND PROJECT  We are currently looking for a Power Platform Developer whose main tasks are to design, build and configure applications in PowerApps, Power Automate, and Power BI to meet business process and application requirements. Should be expertise in Integrating Application UI with Flows, SharePoint, and other backend logical modules.",Remote,Full-time · Executive,https://www.linkedin.com/jobs/view/3226710545/?eBP=CwEAAAGDLFbOAy2dhjlK0aKJF_T9nEJ8UiUNtR3j3IBd2Ee3rM1JsL3zwX6aGKRRXvYe0RKp8nOC9Ty2C1VETLJjoy-JK_UdczS2pQgNZretLA2_oizKmgikUEDJCCXtfNqV-OpHNkI9v-d7hL6gwyYpfO2bSyp056GHYtcTNsFb0nyGgbOOTFr8GxbnHMj8FnEHwfv6ijVCUqGXWk-1HpGWL-mAAYGCVvYe-kgRsyDb2DEIMNSwMp8pymwo2zzJ9jILqwmo9aWu64sGRcsznhroiQQ77La0Pj_nu5f2gOYsm06HwN7HzNKTKM2PozAxXAPgxeu-akTUTXdepMzqnMogpj9j6A&recommendedFlavor=SCHOOL_RECRUIT&refId=EwaRYR1LmYdYlVRQ1mfpGw%3D%3D&trackingId=o%2Bb8PbCgUthtrQetqmnTBw%3D%3D&trk=flagship3_search_srp_jobs,2022-09-11 16:28:46.917702
+Date;job_id;Company;Title;Location;Description;WorkMethods;WorkTimes;Link;ReadDateTimeUTC
+3 weeks ago;3231331793;Syntropy;Data Scientist (R&D);Lithuania;"About the job
+About Syntropy
+We transform the public internet into a secure and user-centric internet, where encryption and optimized performance are built-in and automatically enabled for anything and everything connected to it.
+Syntropy technology is compatible with the current internet yet allows for the better utilization of internet resources. It removes bottlenecks and limitations, ensures security and optimization by default, and unlocks greater scalability potential for future technologies and applications.
+
+About this role
+In this role, you will be building an analytics pipeline, analyzing unique data sets, building complex models, and contributing to the innovations within Internet technology, computer networks, and Web3 technology. You will join in the first dedicated data role within the company, therefore you will have a lot of space to shape your career.
+The product is technically complex and we work in a fast-paced environment. Therefore in this role, you will need curiosity, accuracy, eye-to-detail, ownership, and the ability to communicate and explain your work to others (for example, less technical people).
+‍
+Main responsibilities will be:
+You will create and own data analytics, outline problems, set hypotheses and present insights to various stakeholders;
+You will be creating reports and cost analyses for our products;
+You will build an SDN infrastructure cost forecasting model;
+You will work with our DevOps and developers to build specialized data storage and analytics pipelines. A follow-up would be to build a data ingestion pipeline for the server metadata.
+
+Requirements:
+The most important is your capability to use statistics to tell the story, think on your own, come up with ideas for analysis and visualisations and your ability to work with little guidance, taking ownership of the project if required;
+we expect 2+ years of working industry experience;
+You can easily write SQL queries and you have solid experience with open source language Python (alternatively, R);
+Experience working with Grafana is a plus;
+A machine learning experience and big data frameworks like Hadoop is a plus;
+Google Cloud Professional Data Engineer certification is a big plus.
+To communicate with your colleagues we expect that you fluently express yourself in English.
+
+You get:
+A professional & personal development budget worth $2000 annually.
+An innovative and attractive compensation structure (salary + company-issued cryptocurrency tokens as bonus).
+Flexible working hours (office & remote work).
+A possibility to grow into different roles with higher (or broader) levels of responsibility.
+The opportunity to be a part of a dynamic and ambitious start-up team at an exciting time of growth.
+Syntropy embraces diverse applications. Apply today!";Remote;Full-time;https://www.linkedin.com/jobs/view/3231331793;2022-09-16 13:11:39.859119
+1 day ago;3268945886;Agoda;Analyst (SOAP) (Bangkok-based role, Relocation provided);Vilnius, Vilniaus, Lithuania;"About the job
+About Agoda
+
+Agoda is an online travel booking platform for accommodations, flights, and more. We build and deploy cutting-edge technology that connects travelers with more than 2.5 million accommodations globally. Based in Asia and part of Booking Holdings, our 4,000+ employees representing 90+ nationalities foster a work environment rich in diversity, creativity, and collaboration. We innovate through a culture of experimentation and ownership, enhancing the ability for our customers to experience the world.
+
+Get to Know our Team:
+
+The Supply, Operations, Analytics and Programs (SOAP) team is a team of creative entrepreneurs that develop solutions for Agoda’s non-accommodation partners and promote Agoda’s top and bottom line growth. We design tailored business and product solutions with our partners and help them generate measurable value. Members of our team are empowered and supported to grow their market(s) or accounts. We develop win-win relationships and leverage Agoda’s unique accommodations portfolio and tech solutions to bring our partners the advantages they seek. Utilizing our strong brand and resources, we build new channels to increase the visibility of Agoda, introduce more travelers to our great products and service and deliver significant revenues to the overall business.
+
+The Supply, Operations, Analytics and Programs (SOAP) team is a fast growing and dynamic team within Partner Services department of Agoda. The team is responsible for developing and scaling a range of marketing solutions for accommodation partners focusing on growth, visibility, conversion, pricing recommendations and financial products, as well as advertising and display marketing solutions for businesses and travel organizations.
+
+The team scope includes strategic planning, business development and sales operations, project management, contracting operations, risk assessment and collections operations, product development work and data analytics. Team members closely work with multiple internal stakeholders in product and tech, finance and legal, marketing and partner services in our HQ as well as in multiple offices around the world.
+
+The Opportunity:
+
+The role sits within the Supply Analytics team under SOAP team of Partner Services, where new business ideas, and partnership types are incubated and scaled. As an Analyst/Senior Analyst at Agoda you will use your data skills and business mindset to make a difference in our fast-growing global business across our top hotel partners. This role will be involved in strategic projects and work closely with commercial owners and business stakeholders, using data to identify and translate business needs and opportunities into actionable initiatives.
+
+In this Role, you’ll get to:
+
+Translate internal briefs into analytical projects (to include refining the initial brief and asking the ‘right questions’, working through potential hypotheses and storyboarding the output)
+Use and analyze data from multiple large-scale data warehouses and present statistically strong analysis to a wide range of business stakeholders
+Proactively identify opportunities for growth within supply and the wider business
+Drive new analytical initiatives and projects aimed at improving organizational efficiency and shaping Agoda supply
+Identify, support, and lead projects aimed at scaling up the way the Supply organization leverages on data, insights, and intelligence
+Automate manual operational processes and present back on time savings gained through modernization of business operations
+
+What you’ll Need to Succeed:
+
+2-6 years of experience in analytics/data science/insights/strategy
+Bachelor’s degree ideally in a business or quantitative subject (e.g. computer science, mathematics, engineering, science, economics or finance)
+Expert domain of data analysis and data visualization tools and software such as Excel, SQL, Tableau, Python, R, or similar
+Experience in conducting A/B testing experimentation
+A good understanding of statistical modelling knowledge or any machine learning technique knowledge is a plus (regression, logistic regression, random forest, etc.)
+Good stakeholder management experience. Comfortable presenting to senior leadership and C-suite
+Strong experience in finding data insights and provide business recommendation to the business
+A hacker’s mindset – the ability to build simple but clever and elegant solutions to new problems within significant resource, operational and time constraints through deep understanding of the business, creative problem solving, and a wide range of expertise in data, analytics, automation, programming, and prototyping
+Excellent communicator with superior written, verbal, presentation and interpersonal communication skills
+Data driven in both decision making and performance measurement
+Extreme comfort in ambiguous, fast-paced environment
+Ability to multi-task, prioritize and coordinate resources
+Experience utilizing Python for Automation
+Knowledge of Pandas and other associated analytical packages
+An advanced level of SQL including parallel computation approaches (i.e. Spark)
+Tableau/other BI visualization experience
+
+It’s Great if you Have:
+
+MBA or Masters in a quantitative subject (e.g. computer science, mathematics, engineering, science, economics or finance)
+Program management certifications (e.g. PMI, PRINCE2) to compliment your program management experience
+Asian market experience
+Travel industry / e-commerce / tech / consulting experience
+
+#STRA#ANLS#MRKT#3 #sanfrancisco #sanjose #losangeles #sandiego #oakland #denver #miami #orlando #atlanta #chicago #boston #detroit #newyork #portland #philadelphia #dallas #houston #austin #seattle #washdc #tirana #yerevan #sydney #melbourne #perth #vienna #graz #linz #baku #minsk #brussels #antwerp #ghent #charleroi #liege #saopaolo #sofia #toronto #vancouver #montreal #shanghai #beijing #shenzhen #zagreb #cyprus #prague #Brno #Ostrava #copenhagen #cairo #alexandria #giza #estonia #helsinki #paris #nice #marseille #rouen #lyon #toulouse #tbilisi #berlin #munich #hamburg #stuttgart #cologne #frankfurt #dusseldorf #dortmund #essen #Bremen #leipzig #dresden #hanover #nuremberg #athens #hongkong #budapest #bangalore #newdelhi #jakarta #bali #bandung #dublin #telaviv #milan #rome #naples #turin #palermo #venice #bologna #florence #tokyo #osaka #yokohama #nagoya #okinawa #fukuoka #sapporo #amman #irbid #riga #beirut #tripoli #vilnius #luxembourg #kualalumpur #malta #chisinau #amsterdam #oslo #jerusalem #manila #warsaw #krakow #sintra #lisbon #porto #braga #cascais #loures #amadora #almada #doha #alrayyan #bucharest #moscow #saintpetersburg #riyadh #jeddah #mecca #medina #belgrade #singapore #bratislava #capetown #johannesburg #seoul #barcelona #madrid #valencia #seville #bilbao #malaga #oviedo #alicante #laspalmas #zaragozbanga #stockholm #zurich #geneva #basel #taipei #tainan #taichung #kaohsiung #Phuket #bangkok #istanbul #ankara #izmir #dubai #abudhabi #sharjah #london #manchester #liverpool #edinburgh #kiev #hcmc #hanoi #sanaa #taiz #aden #gibraltar #marrakech #lodz #wroclaw #poznan #Gdansk #szczecin #bydgoszcz #lublin #katowice #rio #salvador #fortaleza #brasilia #belo #belem #manaus #curitiba #portoalegre #saoluisdata representation data analysis SQL data analytics analytics python (programming language) data mining data science r (programming language) tableau analytical skills data visualization databases business analysis business intelligence (bi) microsoft sql server machine learning statistics microsoft power bi java finance shopee traveloka google facebook ctrip trip.com makemytrip grab amazon pandas (software) artificial intelligence (ai) information technology capital one accenture upwork deloitte mckinsey bain microsoft uber lyft gojek lazada alibaba shopify expedia skyscanner
+
+Equal Opportunity Employer
+
+At Agoda, we pride ourselves on being a company represented by people of all different backgrounds and orientations. We prioritize attracting diverse talent and cultivating an inclusive environment that encourages collaboration and innovation. Employment at Agoda is based solely on a person’s merit and qualifications. We are committed to providing equal employment opportunity regardless of sex, age, race, color, national origin, religion, marital status, pregnancy, sexual orientation, gender identity, disability, citizenship, veteran or military status, and other legally protected characteristics.
+
+We will keep your application on file so that we can consider you for future vacancies and you can always ask to have your details removed from the file. For more details please read our privacy policy .
+
+To all recruitment agencies: Agoda does not accept third party resumes. Please do not send resumes to our jobs alias, Agoda employees or any other organization location. Agoda is not responsible for any fees related to unsolicited resumes.";Hybrid;Full-time · Associate;https://www.linkedin.com/jobs/view/3268945886;2022-09-16 13:11:49.434962
