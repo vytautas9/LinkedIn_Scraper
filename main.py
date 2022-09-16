@@ -334,7 +334,7 @@ else:
     job_links = pd.read_csv('LinkedIn_Job_Links.csv')
 
 # Read linkedin job offers
-job_data = get_linkedin_job_offer_description(job_links[0:2])
+job_data = get_linkedin_job_offer_description(job_links)
 job_data.to_csv('LinkedIn_Jobs.csv', sep=';', index=False)
 # end the program and close the browser
 driver.quit()
