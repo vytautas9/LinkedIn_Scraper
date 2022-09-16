@@ -34,13 +34,9 @@ import credentials
 # Job position to look for and locale
 position = "data scientist"
 location = "lithuania"
-#landing_page = f'https://www.linkedin.com/jobs/search/?currentJobId=3156228491&geoId=101464403&keywords={position.replace(" ", "%20")}&location={local}'
 
-# How many pages are we gonna loop through
-# TODO - make the program read the number of available pages
-#number_of_pages = 20
 # read linked in site (True) or read csv file (False) to get links?
-read_linkedin = True
+read_linkedin = False
 # -----------------------------------------------------------
 
 
@@ -69,10 +65,17 @@ def login_linkedin(email, password):
 
 
 def open_job_list_page(job_position, job_location):
+    """
+    Opens the LinkedIn job offers page based on provided job position and job location
+    :param job_position: string - job position
+    :param job_location: string - job location
+    """
     # Open default LinkedIn job list page
     driver.get('https://www.linkedin.com/jobs/')
+
     # Find the keywords/location search bars
     search_bars = driver.find_elements(By.CLASS_NAME, 'jobs-search-box__text-input')
+
     # Enter the job_position and job_location into search bars
     search_keywords = search_bars[0]
     search_keywords.send_keys(job_position)
@@ -82,32 +85,49 @@ def open_job_list_page(job_position, job_location):
     search_location.send_keys(Keys.RETURN)
 
 
-def get_number_of_available_links():
-    # Get the number of available links afer opening job list page
+def get_number_of_available_pages():
+    """
+    Gets the maximum number of available links at the current webpage of job lists
+    :return: integer - maximum number of available pages
+    """
+    # Get the number of available links after opening job list page
     jobs_block = driver.find_element(By.CLASS_NAME,'jobs-search-results-list')
     page_block = jobs_block.find_elements(By.CSS_SELECTOR, '.jobs-search-results-list__pagination')
+
     # A string of page numbers, example: 1 \n 2 \n 3 \n ... \n 22
     pages = page_block[0].text.splitlines()
+
     # Get the maximum page number as int
     max_page_number = int(pages[len(pages)-1])
     return max_page_number
 
 
-def get_linkedin_job_links(job_position, job_location):
+def get_linkedin_job_links(job_position, job_location, old_job_links):
     """
-    Reads the linkedin job offers and get links to them.
-    :param number_of_pages: number of pages to be read. Before launching this function, please indicate the maximum pages to be read from LinkedIn (manual).
-    :param landing_page: random LinkedIn job offer in the first page.
-    :return: a list of job offer links.
+    Reads the linkedin job offers dynamically based on provided job position and job location and get links to them.
+    Only unique list of jobs will be saved based on job_id from old_job_links.
+    :param job_position: a job position string
+    :param job_location: a job location string
+    :param old_job_links: a dataframe of old job links, ids and read datetimes
+    :return: a dataframe object consisting of read datetime in UTC, job links and job ids.
     """
+    # A list of old job ids
+    old_ids = old_job_links['job_id'].tolist()
+
     # Opening jobs webpage
     open_job_list_page(job_position, job_location)
-    # waiting load
     time.sleep(2)
+
     # Get the maximum number of available pages
-    number_of_pages = get_number_of_available_links()
-    # empty list for links
-    links = []
+    number_of_pages = get_number_of_available_pages()
+
+    # empty dataframe for links and job ids
+    job_links = pd.DataFrame(columns=['DateTimeReadUTC','job_id','job_link'])
+
+    # Empty counter for the number of job offers and unique number of job offers
+    number_of_links = 0
+    number_of_unique_links = 0
+
     print('Links are being collected now.')
     try:
         print(f'\t {number_of_pages} page(s) are going to be scanned.')
@@ -118,31 +138,43 @@ def get_linkedin_job_links(job_position, job_location):
             driver.find_element(By.XPATH, f'//button[@aria-label="Page {page}"]').click()
             time.sleep(2)
 
-            jobs_block = driver.find_element(By.CLASS_NAME,
-                                             'jobs-search-results-list')  # 'jobs-search-results-list' #'scaffold-layout__list-container'
+            jobs_block = driver.find_element(By.CLASS_NAME, 'jobs-search-results-list')
             jobs_list = jobs_block.find_elements(By.CSS_SELECTOR, '.jobs-search-results__list-item')
 
             for job in jobs_list:
-                all_links = job.find_elements(By.TAG_NAME, 'a')
-                for a in all_links:
-                    if str(a.get_attribute('href')).startswith(
-                            "https://www.linkedin.com/jobs/view") and a.get_attribute(
-                            'href') not in links:
-                        links.append(a.get_attribute('href'))
-                    else:
-                        pass
-                # scroll down for each job element
+                job_id = job.get_attribute('data-occludable-job-id')
+                link = f'https://www.linkedin.com/jobs/view/{job_id}'
+                number_of_links += 1
+                if link not in job_links['job_link'] and job_id not in old_ids:
+                    number_of_unique_links += 1
+                    data = {
+                        'DateTimeReadUTC': datetime.datetime.utcnow(),
+                        'job_id': job_id,
+                        'job_link': link
+                    }
+                    job_links = pd.concat([job_links, pd.DataFrame(data, index=[number_of_unique_links-1])], ignore_index=True)
+                else:
+                    pass
                 driver.execute_script("arguments[0].scrollIntoView();", job)
 
             time.sleep(3)
     except:
-        pass
+        print(f'\tError at page - {page}')
     print('Scanning complete.')
-    print('Found ' + str(len(links)) + ' links for job offers')
-    return links
+    if number_of_links > 0:
+        print('Found ' + str(number_of_links) + ' links for job offers')
+        print('Out of those links, ' + str(number_of_unique_links) + ' are unique links which we do not already have')
+        if len(old_ids) and number_of_unique_links > 0:
+            print('Those links will be appended to already existing list of ' + str(len(old_ids)) + ' links')
+            job_links = pd.concat([job_links, old_job_links], ignore_index=True)
+        else:
+            pass
+    else:
+        print('No links were found.')
+    return job_links
 
 
-def get_linkedin_job_offer_description_v2(urls):
+def get_linkedin_job_offer_description(urls):
     """
     Reads the general information and job description of provided links.
     :param urls: a list of links to job offers.
@@ -270,22 +302,25 @@ driver.maximize_window()
 login_linkedin(credentials.email, credentials.password)
 
 if read_linkedin:
-    # Start reading linkedin job offer links
-    links = get_linkedin_job_links(position, location)
-    # Save the links
-    job_offer_links = pd.DataFrame({'ReadDateTimeUTC': datetime.datetime.utcnow(),
-                                    'Link': links,
-                                    'SearchPosition': position,
-                                    'SearchLocation': location
-                                   }, index=range(0, len(links)))
-    job_offer_links.to_csv('LinkedIn_Job_Links.csv', index = False)
+    # See if there's already a list of read links, if yes, read it
+    # Otherwise create an empty dataframe object
+    try:
+        job_links = pd.read_csv('LinkedIn_Job_Links.csv', dtype={'DateTimeReadUTC': 'string',
+                                                                 'job_id': 'string',
+                                                                 'job_link': 'string'})
+    except FileNotFoundError:
+        job_links = pd.DataFrame(columns=['DateTimeReadUTC', 'job_id', 'job_link'])
+
+    # Start reading LinkedIn job offer links
+    job_links = get_linkedin_job_links(position, location, job_links)
+    # Save the job links
+    job_links.to_csv('LinkedIn_Job_Links.csv', index = False)
 else:
-    links = pd.read_csv('LinkedIn_Job_Links.csv')
-    links = links['Link']
+    job_links = pd.read_csv('LinkedIn_Job_Links.csv')
 
 # Read linkedin job offers
-job_data = get_linkedin_job_offer_description_v2(links[0:2])
-job_data.to_csv('LinkedIn_Jobs.csv', index = False)
+#job_data = get_linkedin_job_offer_description(links[0:2])
+#job_data.to_csv('LinkedIn_Jobs.csv', index = False)
 
 # end the program and close the browser
 driver.quit()
