@@ -19,7 +19,6 @@
 from selenium import webdriver # needs additional chrom webdriver -- https://chromedriver.chromium.org/downloads
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
 import datetime
 import pandas as pd
 import time
@@ -32,11 +31,11 @@ import credentials
 # -----------------------------------------------------------
 # Program parameters
 # Job position to look for and locale
-position = "data scientist"
+position = "machine learning"
 location = "lithuania"
 
 # read linked in site (True) or read csv file (False) to get links?
-read_linkedin = False
+read_linkedin = True
 # -----------------------------------------------------------
 
 
@@ -45,8 +44,8 @@ read_linkedin = False
 def login_linkedin(email, password):
     """
     Searches for login and password inputs and send provided credentials.
-    :param email: linkedin account email
-    :param password: linkedin account password
+    :param email: LinkedIn account email
+    :param password: LinkedIn account password
     :return:
     """
     # Opening linkedin website
@@ -176,9 +175,11 @@ def get_linkedin_job_links(job_position, job_location, old_job_links):
 
 def get_linkedin_job_offer_description(job_links, old_job_data):
     """
-    Reads the general information and job description of provided links.
-    :param urls: a list of links to job offers.
-    :return: a dataframe with general information and job descriptions, as well as read datetime in UTC.
+    Reads the general information and job description of provided links. Links that were already read and saved in csv
+    are not going to be read again based on the old_job_data dataframe
+    :param job_links: a dataframe with job_id and job_link for jobs which should be read
+    :param old_job_data: old dataframe of job_data, existing job_ids are not going to be read again
+    :return: a dataframe with general information and job descriptions of provided links + old job data
     """
     # TODO - error if 0 links provided
 
@@ -350,9 +351,10 @@ try:
 except FileNotFoundError:
     job_data = pd.DataFrame(columns=['Date', 'job_id', 'Company', 'Title', 'Location', 'Description',
                                      'WorkMethods', 'WorkTimes', 'Link', 'ReadDateTimeUTC'])
+
 # Read linkedin job offers
-job_data = get_linkedin_job_offer_description(job_links[0:1], job_data)
-#job_data.to_csv('LinkedIn_Jobs.csv', sep=';', index=False)
+job_data = get_linkedin_job_offer_description(job_links, job_data)
+job_data.to_csv('LinkedIn_Jobs.csv', sep=';', index=False)
+
 # end the program and close the browser
-print(job_data)
 driver.quit()
