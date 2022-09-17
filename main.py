@@ -127,6 +127,7 @@ def get_linkedin_job_links(job_position, job_location, old_job_links):
     number_of_links = 0
     number_of_unique_links = 0
 
+    # TODO - also print which search keywords are being passed
     print('Links are being collected now.')
     try:
         print(f'\t {number_of_pages} page(s) are going to be scanned.')
@@ -205,6 +206,7 @@ def get_linkedin_job_offer_description(job_links, old_job_data):
     print(f'{len(urls)} link(s) are going to be read.')
     for i in range(len(urls)):
         print(f'\t Currently visiting link - {i + 1}')
+        # TODO - also, in addition to the number of the link being read, also show a job_id
 
         # Based on the provided job_id, check if this job description has not been read already,
         # If it has been - skip to the next link, otherwise read it
@@ -302,6 +304,7 @@ def get_linkedin_job_offer_description(job_links, old_job_data):
         time.sleep(2)
     print(f'Finished reading {len(job_links)} link(s).')
     # create a dataframe out of the results
+    # TODO - standardize job_data column names
     data = pd.DataFrame({'Date': post_dates,
                          'job_id': job_ids,
                          'Company': company_names,
@@ -346,6 +349,7 @@ else:
 
 # See if there's already a list of read job descriptions, if yes, read it
 # Otherwise create an empty dataframe object
+# TODO - standardize job_data column names
 try:
     job_data = pd.read_csv('LinkedIn_Jobs.csv', sep=';', dtype={'job_id': 'string'})
 except FileNotFoundError:
