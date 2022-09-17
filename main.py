@@ -174,7 +174,7 @@ def get_linkedin_job_links(job_position, job_location, old_job_links):
     return job_links
 
 
-def get_linkedin_job_offer_description(job_links):
+def get_linkedin_job_offer_description(job_links, old_job_data):
     """
     Reads the general information and job description of provided links.
     :param urls: a list of links to job offers.
@@ -184,6 +184,7 @@ def get_linkedin_job_offer_description(job_links):
 
     urls = job_links['job_link'].tolist()
     all_job_ids = job_links['job_id'].tolist()
+    old_job_ids = old_job_data['job_id'].tolist()
 
     # Start reading linkedin job offers
     # Create empty lists to store information
@@ -203,6 +204,15 @@ def get_linkedin_job_offer_description(job_links):
     print(f'{len(urls)} link(s) are going to be read.')
     for i in range(len(urls)):
         print(f'\t Currently visiting link - {i + 1}')
+
+        # Based on the provided job_id, check if this job description has not been read already,
+        # If it has been - skip to the next link, otherwise read it
+        if str(all_job_ids[i]) in old_job_ids:
+            print(f'\t\tJob description has been already read previously... Skipping...')
+            continue
+        else:
+            pass
+
         try:
             # Open the url
             driver.get(urls[i])
@@ -214,6 +224,7 @@ def get_linkedin_job_offer_description(job_links):
             # if error appears while opening the page, continue to next url
             continue
         # Find the general information of the job offers
+
         # Sometimes there's more than 1 'p5' content, for now we'll take only the first one
         content = driver.find_elements(By.CLASS_NAME, 'p5')[0]
         print(f'\t\tGeneral job info. - IN-PROGRESS.')
@@ -301,8 +312,7 @@ def get_linkedin_job_offer_description(job_links):
                          'Link': job_links,
                          'ReadDateTimeUTC': readDateTimesUTC
                          })
-    # cleaning description column
-    #data['Description'] = data['Description'].str.replace('\n', ' ')
+    data = pd.concat([data, old_job_data], ignore_index=True)
     return data
 # -----------------------------------------------------------
 
@@ -333,8 +343,16 @@ if read_linkedin:
 else:
     job_links = pd.read_csv('LinkedIn_Job_Links.csv')
 
+# See if there's already a list of read job descriptions, if yes, read it
+# Otherwise create an empty dataframe object
+try:
+    job_data = pd.read_csv('LinkedIn_Jobs.csv', sep=';', dtype={'job_id': 'string'})
+except FileNotFoundError:
+    job_data = pd.DataFrame(columns=['Date', 'job_id', 'Company', 'Title', 'Location', 'Description',
+                                     'WorkMethods', 'WorkTimes', 'Link', 'ReadDateTimeUTC'])
 # Read linkedin job offers
-job_data = get_linkedin_job_offer_description(job_links)
-job_data.to_csv('LinkedIn_Jobs.csv', sep=';', index=False)
+job_data = get_linkedin_job_offer_description(job_links[0:1], job_data)
+#job_data.to_csv('LinkedIn_Jobs.csv', sep=';', index=False)
 # end the program and close the browser
+print(job_data)
 driver.quit()
